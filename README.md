@@ -1,207 +1,95 @@
 # StreamSentinel
 
-IA d'aide à l'évaluation des cours d'eau urbains — OneAquaHealth IEEE Global Hackathon 2026
-**Track 3 : AI-Assisted Stream Assessment**
+AI help for citizens who check urban streams. Built for the OneAquaHealth IEEE Global Hackathon 2026, Track 3 (AI-Supported Assessment).
 
-## Le problème
+## The problem
 
-Les citoyens qui signalent l'état d'un cours d'eau produisent des données
-hétérogènes et difficiles à exploiter. StreamSentinel analyse une photo,
-pré-remplit le formulaire d'observation et estime un niveau de risque pour les
-humains et les animaux, en croisant l'image avec des données publiques (météo,
-Hub'Eau). L'humain garde la décision finale : toute alerte est validée par un
-gestionnaire avant envoi.
+Citizens who report on a stream often send data that is uneven and hard to use. The OneAquaHealth citizen app asks many questions, and some of them are difficult for a non-expert.
 
-## Jour 1 — Analyse de l'eau
+StreamSentinel looks at the citizen's photo and pre-fills part of the OneAquaHealth form. It also estimates a risk level for people and for animals, using the photo together with public weather and river flow data. The citizen checks every answer before sending. No alert is sent without a manager's validation.
 
-Pipeline **sans aucun entraînement**, fondé sur des modèles pré-entraînés et du
-traitement d'image.
+## How it works
 
-| Étape | Méthode |
-|---|---|
-| Contrôle qualité | Variance du Laplacien (flou), luminosité moyenne |
-| Segmentation | SegFormer (ADE20K) → eau / végétation / bâti / sol / ciel |
-| Type de berge | Analyse de l'anneau de pixels autour de l'eau |
-| Ombrage de la rive | Part de canopée dans la moitié haute de l'image |
-| Turbidité, eau verte, mousse, irisation | Analyse HSV + texture sur les pixels d'eau |
+We did not train a big model from scratch. The pipeline combines pretrained models, image processing and one small detector that we fine-tuned. It was built in steps, one notebook per day.
 
-Sur 11 photos annotées à la main : berge 90,9 %, turbidité 81,8 %, eau verte
-90,9 %, mousse 90,9 %. Le contrôle qualité rejette correctement les photos
-floues, sous-exposées et sans cours d'eau (7/7).
+| Day | What it does | Main tools |
+|---|---|---|
+| J1 | Checks photo quality and segments the scene (water, vegetation, buildings) | SegFormer, OpenCV |
+| J2 | Checks that the photo really shows a stream | CLIP |
+| J3 | Detects litter and other objects | YOLO11s fine-tuned, OWLv2 |
+| J4 | Pre-fills the form with the real OneAquaHealth answer codes | Qwen2.5-VL-3B |
+| J5 | Computes the risk for people and animals | Open-Meteo, Hub'Eau |
+| J6 | Fixes the errors found in J4 | |
 
-## Jour 2 — Validation, RGPD et guidage
+When the model is not sure, it answers NOT_SURE instead of guessing. The question is then left to the citizen.
 
-| Étape | Méthode |
-|---|---|
-| Validation de la scène | CLIP zero-shot, avec scènes pièges (piscine, mer, rue, parking, portrait) |
-| Vérification de la description | Mots-clés français → test binaire CLIP, élément par élément |
-| Anonymisation | Prévue dans le pipeline (voir limites) |
-| Messages de reprise | Une consigne concrète par cause de rejet |
+## Results
 
-Sur 21 photos : 13 acceptées, 8 rejetées, conformément à l'attendu.
+We first measured our models on the photos we used to build them. The numbers looked good, but they were too optimistic. So we built independent test sets with photos the models had never seen, and we annotated them by hand.
 
-Exemple — l'utilisateur déclare « un poisson mort au bord » sur une photo qui
-n'en contient pas : la photo est acceptée, mais l'app répond « Nous ne
-retrouvons pas sur la photo : poisson. Prenez une seconde photo plus proche de
-cet élément. »
+| Model | Test set | Result |
+|---|---|---|
+| Form pre-filling (J4) | 21 unseen Wikimedia photos | 71% of answers correct (95% CI 62 to 80%), 61% of questions pre-filled |
+| Stream check (J2) | 66 unseen Wikimedia photos | 92% of streams accepted, 79% of off-topic photos rejected |
+| Litter detector (J3) | 382 external images | precision 0.77, recall 0.43 |
 
-## Jour 3 — Détection d'objets
+The litter detector reached a mAP50 of 0.796 on its own validation set of 599 images. On the external set it misses more than half of the litter, so "no litter detected" does not mean the stream is clean. Lowering the detection threshold did not really help (best F1 0.557 against 0.548), so we kept it at 0.25.
 
-**Détecteur de déchets entraîné** (YOLO11s affiné sur 2 058 images, 40 epochs) :
+Some questions are answered well. Bank type was right 100% of the time and water appearance 89% of the time. Others were close to chance. The model almost never answers the hardest questions, like sewage discharge or vegetation cuts, and we think this is the right behaviour.
 
-| Classe | Précision | Rappel | mAP50 |
-|---|---|---|---|
-| plastic | 0,896 | 0,897 | 0,925 |
-| can | 0,928 | 0,815 | 0,868 |
-| bottle | 0,849 | 0,806 | 0,837 |
-| carton | 0,827 | 0,680 | 0,745 |
-| paper | 0,769 | 0,571 | 0,603 |
-| **Global** | **0,854** | **0,754** | **0,796** |
+## What we changed after the evaluation
 
-Mesuré sur 599 images de validation indépendantes.
+For four questions, the accuracy was not better than chance. These are channel shape, vegetation on the left bank, vegetation on the right bank and the overall condition. The AI no longer pre-fills them, and the citizen answers them alone. The model still computes them in the background, so they can be switched back on if a better model passes the test.
 
-**Détection zero-shot (OWLv2)** pour les catégories sans dataset : buse de
-rejet, faune, débris sanitaire.
+We judged the left and right banks together. With so few photos, a difference between the two sides would most likely be noise.
 
-**Garde-fou par masque d'eau** : les détections dont la présence n'a de sens que
-dans l'eau sont confrontées au masque de segmentation du J1.
+## Risk score
 
-### Décisions de conception
+The risk score adds points for each signal the pipeline sees, like foam, abnormal colour, sewage discharge, litter, a dead animal, recent rain or a very high river flow. There is one score for people and one for animals, because dogs are more exposed to algal toxins and people are more exposed to strong currents.
 
-- **Filtrage des détections zero-shot.** OWLv2 produisait 18 à 33 détections par
-  photo à seuil 0,15. Trois mesures : seuils relevés à 0,30-0,35 par classe,
-  phrases décrivant l'objet et non la scène, rejet des boîtes couvrant plus de
-  25 % de l'image. Résultat : 1 à 8 détections par photo, sans perte sur les
-  vrais objets.
-- **Classe « ouvrage » retirée** : le masque du J1 détecte déjà la berge
-  bétonnée avec 90,9 % de précision.
-- **Détection de poissons morts écartée.** Le modèle public
-  `dead-fish-ye77u/30` (mAP50 annoncé : 88,8 %) signalait un garde-corps (0,54)
-  et des nuages (0,66) comme poissons morts sur nos photos. Ses performances
-  sont mesurées sur un jeu de test qui ne ressemble pas à nos conditions de
-  prise de vue. Une fausse alerte déclencherait une notification aux
-  gestionnaires : le coût d'erreur justifie de ne pas l'intégrer sans
-  validation. Piste retenue : confirmation par modèle vision-langage.
+Each rule is linked to the OneAquaHealth Key Indicators Factsheets when they support it. For example, the fecal coliforms and pathogens factsheets explain why sewage discharge is a health risk, and the diatoms factsheet explains why an abnormal water colour can mean a toxic algal bloom. The factsheets do not give thresholds for photo observations. So the points and thresholds are our own choices, and the app says so. Rules with no factsheet behind them are marked as team assumptions.
 
-## Limites connues
+A low risk gives a simple safety tip. A high risk is sent to the manager's queue and nothing is published until a human validates it.
 
-- **Échantillon réduit** : les seuils du J1 et du J2 sont calés sur une
-  vingtaine de photos. Ces chiffres sont indicatifs, pas une validation. Les
-  résultats du J3 (mAP50) sont en revanche mesurés sur un jeu indépendant.
-- L'écume d'une cascade est parfois confondue avec de la mousse.
-- Une eau sombre et peu profonde est parfois classée comme sol.
-- **Floutage RGPD non actif** : les cascades de Haar ont été retirées
-  d'OpenCV 5. L'architecture le prévoit (appel avant toute analyse) ; une
-  version en production utiliserait un détecteur de visages dédié.
-- CLIP est entraîné en anglais : les descriptions françaises passent par une
-  table de mots-clés, qui couvre les cas courants mais pas tout le vocabulaire.
-- Une photo a été retirée du jeu de test (`eau_verte_00.jpg`) : image satellite
-  récupérée par erreur lors de la collecte Wikimedia.
-## État d'avancement — Jour 4
+## The app
 
-Modèle vision-langage **Qwen2.5-VL-3B-Instruct** (sans entraînement) pour
-pré-remplir le formulaire d'observation et arbitrer les cas ambigus
-(écume de pollution ou eau vive naturelle, présence d'un animal mort).
+The app has three spaces.
 
-- 16 champs du formulaire pré-remplis par l'IA, 7 laissés au citoyen
-  (mesures physiques, ressenti personnel…)
-- Si l'IA n'est pas sûre, elle répond NOT_SURE au lieu d'inventer
-- Aucune alerte « animal mort » sans validation humaine
+1. New observation. The citizen sends a photo and picks the place on a map of the 106 OneAquaHealth research sites. The form then opens in six steps, like the official app. Under each answer, a tag shows if it was suggested by the AI, changed by the citizen or left for the citizen.
+2. Analysed examples. Photos analysed in advance, so the app works without the GPU.
+3. Manager. The validation queue for high risk observations, with a table that explains every point of the risk score.
 
-**Résultats sur le jeu de test (19 photos)**
+Observations can be exported as FHIR R4, following the draft OneAquaHealth implementation guide (hl7-eu/oah). The export also includes the answer codes used by the OneAquaHealth app.
 
-- 15 fiches produites, 0 erreur ; 4 photos refusées au contrôle qualité
-- Taux de pré-remplissage moyen : 64 % ; taux d'abstention : 35 %
-- Précision (évaluation manuelle sur un échantillon de 8 photos,
-  15 réponses notées) : 86,7 %
-  - réponses du modèle vision-langage : 100 %
-  - réponses des règles de traitement d'image : 67 %
-- Temps de traitement : environ 40 s par photo sur GPU T4
+## Limits
 
-**Limites identifiées**
+The test sets are small, about 20 to 70 photos. The confidence intervals are wide and the results should be read as a first estimate.
 
-- Faux positifs « animal mort » sur des photos de déchets flottants
-  (bouteilles prises pour des animaux) : la validation humaine empêche
-  toute fausse alerte, mais le prompt doit être renforcé
-- La règle de turbidité ne détecte pas l'eau boueuse
-- Échantillon d'évaluation encore trop petit pour des conclusions solides##
+The J4 test set was annotated by one person only, so we could not measure the agreement between two annotators.
 
-## Jour 5 — Contexte et score de risque
+Wide and calm rivers are sometimes taken for lakes by CLIP, and some open landscapes like the sea pass the stream check.
 
-La photo seule ne suffit pas : une eau claire peut être dangereuse après un orage.
-Le J5 croise la fiche du J4 avec deux sources publiques, sans clé API :
+Hub'Eau river flow data only exists in France. In the other OneAquaHealth cities, the risk uses the weather only.
 
-- **Open-Meteo** : pluie des 72 dernières heures, pluie prévue à 3 jours, température
-- **Hub'Eau (hydrométrie)** : débit à la station la plus proche, comparé à la
-  médiane des 30 derniers jours (crue ou étiage)
+Face blurring for privacy is planned in the pipeline but not active yet.
 
-**Score de risque explicable** : chaque signal (mousse, couleur anormale, rejet
-d'eaux usées, déchets, animal mort, pluie, chaleur, débit) ajoute des points
-avec une raison lisible. Deux scores distincts :
+The live analysis needs a GPU. We run it in Google Colab and reach it through an ngrok tunnel, which is fine for a demo but not for real use.
 
-- **Humains** : sensibles au courant et aux crues
-- **Animaux** : sensibles aux cyanobactéries (eau colorée + chaleur) et à l'étiage
+## Run the app
 
-Niveaux FAIBLE / MODÉRÉ / ÉLEVÉ, chacun avec une consigne de sécurité.
-Tout niveau ÉLEVÉ part dans la file de validation du gestionnaire :
-**aucune alerte n'est envoyée sans validation humaine.**
+```bash
+pip install -r requirements.txt
+python -m streamlit run app.py
+```
 
-**Résultats** (15 fiches, Seine à Paris, station Austerlitz à 1,6 km) :
+The Analysed examples and Manager spaces work right away. For the live analysis, run the notebook `API_streamsentinel.ipynb` in Google Colab with a T4 GPU, then put its address in `.streamlit/secrets.toml` as `API_URL`.
 
-| Scénario | Humains FAIBLE | MODÉRÉ | ÉLEVÉ |
-|---|---|---|---|
-| Conditions réelles (temps sec, débit normal) | 8 | 4 | 3 |
-| Crue simulée (débit ×3,1) | 0 | 8 | 7 |
+The pipeline notebooks (J1 to J5) also run in Colab. J3 needs a Roboflow API key, saved in the Colab secrets as `ROBOFLOW_API_KEY`.
 
-Le score réagit bien au contexte : après 25 mm de pluie, même une berge propre
-passe en MODÉRÉ, conformément aux recommandations sanitaires après orage.
+## Data and credits
 
-**Limites** : seuils fixés à dire d'expert, non calibrés ; Hub'Eau ne couvre que
-la France ; le score hérite des erreurs du J4 (mousse jamais détectée, turbidité
-sous-estimée, faux positifs « animal mort »), corrigées au J6.
+Test photos come from Wikimedia Commons, with their licences listed in `credits_photos.csv`. The litter data comes from Roboflow Universe (RF100-VL under MIT, Floating Trash Detection under CC BY 4.0). The research sites come from the OneAquaHealth ENORA API.
 
-## Suite prévue
-- **J6** : évaluation globale, réglage final des seuils et correction des erreurs
-  ## État d'avancement — Jour 6
+The risk rules cite the OneAquaHealth Key Indicators of Ecosystem and Biological Health factsheets by Schmeller et al. (2026), doi 10.5281/zenodo.20345207, under CC BY 4.0.
 
-Réglage des seuils et correction des défauts relevés au J4.
-
-**Corrections apportées**
-
-- **Prompt de détection d'animal mort reformulé.** La première version listait
-  les objets à ne pas confondre (bouteilles, sacs…) ; elle a dégradé les
-  résultats, en faisant passer les faux positifs de 3 à 5. La version retenue
-  demande au contraire d'identifier des signes positifs (tête, œil, nageoires,
-  écailles, plumes, pelage) : les faux positifs tombent à 1 sur 19 photos.
-- **Seuils de turbidité resserrés** (MUDDY au-dessus de 0,35, CLEAR en dessous
-  de 0,30, au lieu de 0,5 et 0,25) : la zone d'abstention passe de 0,25 à 0,10.
-  Les photos d'eau boueuse mesuraient 0,41 et 0,54 et n'étaient plus classées.
-- **Lecture des réponses corrigée** : un NOT_SURE du modèle vision-langage
-  était signalé comme « réponse hors options », ce qui laissait croire à une
-  erreur ; sa justification est désormais conservée.
-
-**Résultats finaux (19 photos, 15 fiches produites, 0 erreur)**
-
-- Taux de pré-remplissage moyen : 65 %
-- Évaluations : 6 MODERATE, 5 POOR, 4 GOOD
-- Faux positifs « animal mort » : 1 (contre 3 avant correction)
-- Temps de traitement : environ 35 s par photo sur GPU T4
-
-**Enseignement**
-
-Sur un modèle vision-langage de 3 milliards de paramètres, une consigne
-négative (« ceci n'est pas un animal ») dégrade les résultats : le modèle
-se focalise sur les objets cités. Une consigne positive, fondée sur des
-signes anatomiques observables, est nettement plus fiable.
-- **Interface** : application mobile de capture guidée et tableau de bord
-  gestionnaire avec file de validation des alertes
-## Données
-
-- Photos de test : Wikimedia Commons (voir `credits_photos.csv`)
-- Déchets flottants : [Roboflow Universe, RF100-VL](https://universe.roboflow.com/rf100-vl/floating-waste-8deje-lrbq) (MIT)
-
-## Exécution
-
-Ouvrir les notebooks dans Google Colab (GPU T4), dans l'ordre J1, J2, J3. Une
-clé API Roboflow est requise, à placer dans les Secrets Colab sous le nom
-`ROBOFLOW_API_KEY`.
+The list of recent changes is in `CHANGELOG.md`.
