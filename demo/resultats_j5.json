@@ -1,0 +1,532 @@
+[
+  {
+    "risque_humains": {
+      "niveau": "FAIBLE",
+      "score": 0,
+      "consigne": "Pas de danger visible. Évitez tout de même de boire l'eau."
+    },
+    "risque_animaux": {
+      "niveau": "FAIBLE",
+      "score": 0,
+      "consigne": "Pas de danger visible pour les animaux."
+    },
+    "raisons": [
+      "aucun signal de risque détecté"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "berge_betonnee_00.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "FAIBLE",
+      "score": 0,
+      "consigne": "Pas de danger visible. Évitez tout de même de boire l'eau."
+    },
+    "risque_animaux": {
+      "niveau": "FAIBLE",
+      "score": 0,
+      "consigne": "Pas de danger visible pour les animaux."
+    },
+    "raisons": [
+      "aucun signal de risque détecté"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "berge_betonnee_01.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "FAIBLE",
+      "score": 1,
+      "consigne": "Pas de danger visible. Évitez tout de même de boire l'eau."
+    },
+    "risque_animaux": {
+      "niveau": "FAIBLE",
+      "score": 1,
+      "consigne": "Pas de danger visible pour les animaux."
+    },
+    "raisons": [
+      "eau trouble"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "berge_naturelle_00.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "FAIBLE",
+      "score": 0,
+      "consigne": "Pas de danger visible. Évitez tout de même de boire l'eau."
+    },
+    "risque_animaux": {
+      "niveau": "FAIBLE",
+      "score": 0,
+      "consigne": "Pas de danger visible pour les animaux."
+    },
+    "raisons": [
+      "aucun signal de risque détecté"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "berge_naturelle_01.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "FAIBLE",
+      "score": 1,
+      "consigne": "Pas de danger visible. Évitez tout de même de boire l'eau."
+    },
+    "risque_animaux": {
+      "niveau": "FAIBLE",
+      "score": 1,
+      "consigne": "Pas de danger visible pour les animaux."
+    },
+    "raisons": [
+      "eau trouble"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "eau_boueuse_00.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "FAIBLE",
+      "score": 1,
+      "consigne": "Pas de danger visible. Évitez tout de même de boire l'eau."
+    },
+    "risque_animaux": {
+      "niveau": "FAIBLE",
+      "score": 1,
+      "consigne": "Pas de danger visible pour les animaux."
+    },
+    "raisons": [
+      "eau trouble"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "eau_boueuse_01.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "MODERE",
+      "score": 2,
+      "consigne": "Évitez le contact avec l'eau et lavez-vous les mains après la visite."
+    },
+    "risque_animaux": {
+      "niveau": "MODERE",
+      "score": 2,
+      "consigne": "Empêchez votre chien de boire ou de se baigner."
+    },
+    "raisons": [
+      "couleur de l'eau anormale"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "eau_verte_02.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "FAIBLE",
+      "score": 0,
+      "consigne": "Pas de danger visible. Évitez tout de même de boire l'eau."
+    },
+    "risque_animaux": {
+      "niveau": "FAIBLE",
+      "score": 0,
+      "consigne": "Pas de danger visible pour les animaux."
+    },
+    "raisons": [
+      "aucun signal de risque détecté"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "mousse_00.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "MODERE",
+      "score": 3,
+      "consigne": "Évitez le contact avec l'eau et lavez-vous les mains après la visite."
+    },
+    "risque_animaux": {
+      "niveau": "MODERE",
+      "score": 3,
+      "consigne": "Empêchez votre chien de boire ou de se baigner."
+    },
+    "raisons": [
+      "rejet d'eaux usées visible"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "mousse_01.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "FAIBLE",
+      "score": 0,
+      "consigne": "Pas de danger visible. Évitez tout de même de boire l'eau."
+    },
+    "risque_animaux": {
+      "niveau": "FAIBLE",
+      "score": 0,
+      "consigne": "Pas de danger visible pour les animaux."
+    },
+    "raisons": [
+      "aucun signal de risque détecté"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "mousse_02.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "FAIBLE",
+      "score": 1,
+      "consigne": "Pas de danger visible. Évitez tout de même de boire l'eau."
+    },
+    "risque_animaux": {
+      "niveau": "FAIBLE",
+      "score": 1,
+      "consigne": "Pas de danger visible pour les animaux."
+    },
+    "raisons": [
+      "7 déchet(s) détecté(s) : blessure ou ingestion"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "dechets_000.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "ELEVE",
+      "score": 6,
+      "consigne": "Ne touchez pas l'eau. Signalement transmis au gestionnaire pour vérification."
+    },
+    "risque_animaux": {
+      "niveau": "ELEVE",
+      "score": 6,
+      "consigne": "Tenez les animaux en laisse, loin de l'eau. Signalement transmis au gestionnaire."
+    },
+    "raisons": [
+      "couleur de l'eau anormale",
+      "animal mort signalé (à confirmer)",
+      "6 déchet(s) détecté(s) : blessure ou ingestion"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": true,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "dechets_001.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "MODERE",
+      "score": 3,
+      "consigne": "Évitez le contact avec l'eau et lavez-vous les mains après la visite."
+    },
+    "risque_animaux": {
+      "niveau": "MODERE",
+      "score": 3,
+      "consigne": "Empêchez votre chien de boire ou de se baigner."
+    },
+    "raisons": [
+      "couleur de l'eau anormale",
+      "1 déchet(s) détecté(s) : blessure ou ingestion"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "dechets_002.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "MODERE",
+      "score": 3,
+      "consigne": "Évitez le contact avec l'eau et lavez-vous les mains après la visite."
+    },
+    "risque_animaux": {
+      "niveau": "MODERE",
+      "score": 3,
+      "consigne": "Empêchez votre chien de boire ou de se baigner."
+    },
+    "raisons": [
+      "couleur de l'eau anormale",
+      "4 déchet(s) détecté(s) : blessure ou ingestion"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "dechets_003.jpg"
+  },
+  {
+    "risque_humains": {
+      "niveau": "MODERE",
+      "score": 3,
+      "consigne": "Évitez le contact avec l'eau et lavez-vous les mains après la visite."
+    },
+    "risque_animaux": {
+      "niveau": "MODERE",
+      "score": 3,
+      "consigne": "Empêchez votre chien de boire ou de se baigner."
+    },
+    "raisons": [
+      "couleur de l'eau anormale",
+      "2 déchet(s) détecté(s) : blessure ou ingestion"
+    ],
+    "tendance_3j": "stable",
+    "meteo": {
+      "disponible": true,
+      "pluie_72h_mm": 0,
+      "pluie_aujourdhui_mm": 0,
+      "pluie_prevue_3j_mm": 0,
+      "temp_max_aujourdhui": 23.2,
+      "temp_max_3j": 27.5
+    },
+    "a_valider_gestionnaire": false,
+    "hubeau": {
+      "disponible": true,
+      "station": "La Seine à Paris - Austerlitz [>2006] - Station débitmétrique",
+      "code_station": "F700000103",
+      "distance_km": 1.6,
+      "debit_m3s": 94.2,
+      "debit_median_30j_m3s": 82.28,
+      "ratio": 1.14
+    },
+    "photo": "dechets_004.jpg"
+  }
+]

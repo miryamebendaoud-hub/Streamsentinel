@@ -1,0 +1,8 @@
+# StreamSentinel app (python -m streamlit run app.py)
+streamlit>=1.40
+pandas>=2.0
+requests>=2.31
+folium>=0.17
+streamlit-folium>=0.22
+
+# The analysis notebooks (J1 to J5, API) run in Google Colab and install their own packages.

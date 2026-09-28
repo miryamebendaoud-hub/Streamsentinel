@@ -1,0 +1,2327 @@
+[
+  {
+    "photo": "berge_betonnee_00.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "FLAT",
+        "confiance": 0.8,
+        "raison": "The stream appears to be wide and flat",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "ARTIFICIAL",
+        "confiance": 1.0,
+        "raison": "84% de berge artificielle ; confirmé par le modèle",
+        "source": "regle+vlm"
+      },
+      "water_flow": {
+        "valeur": "SLOW",
+        "confiance": 0.8,
+        "raison": "The water is calm",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "CLEAR",
+        "confiance": 0.7,
+        "raison": "turbidité 0.15",
+        "source": "regle"
+      },
+      "barriers": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No barriers are visible",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "YES",
+        "confiance": 0.98,
+        "raison": "77% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "YES",
+        "confiance": 1.0,
+        "raison": "92% de surfaces artificielles",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "15% de végétation, cas limite",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "NO",
+        "confiance": 0.7,
+        "raison": "0% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "TREES",
+        "confiance": 1.0,
+        "raison": "100% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "pas assez de végétation visible",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "POOR",
+      "score": -3,
+      "raisons": [
+        "-2 berges artificielles",
+        "+2 eau claire",
+        "-1 rive gauche imperméable",
+        "-1 rive droite imperméable",
+        "-1 pas de végétation rive droite",
+        "le modèle vision-langage propose MODERATE : à vérifier par le citoyen"
+      ],
+      "accord_modele": false,
+      "confiance": 0.55
+    },
+    "arbitrages": {},
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "no animal body is visible",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": []
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/berge_betonnee_00.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.56
+  },
+  {
+    "photo": "berge_betonnee_01.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "FLAT",
+        "confiance": 0.8,
+        "raison": "The stream appears to be wide and flat",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.8,
+        "raison": "The bottom seems to be made of natural materials",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "ARTIFICIAL",
+        "confiance": 1.0,
+        "raison": "100% de berge artificielle ; confirmé par le modèle",
+        "source": "regle+vlm"
+      },
+      "water_flow": {
+        "valeur": "SLOW",
+        "confiance": 0.8,
+        "raison": "The water is calm and there are no visible ripples",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "CLEAR",
+        "confiance": 0.63,
+        "raison": "turbidité 0.22",
+        "source": "regle"
+      },
+      "barriers": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "There are no barriers visible",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "YES",
+        "confiance": 1.0,
+        "raison": "100% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "YES",
+        "confiance": 1.0,
+        "raison": "100% de surfaces artificielles",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "NO",
+        "confiance": 0.7,
+        "raison": "0% de végétation",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "NO",
+        "confiance": 0.7,
+        "raison": "0% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "pas assez de végétation visible",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "pas assez de végétation visible",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "POOR",
+      "score": -4,
+      "raisons": [
+        "-2 berges artificielles",
+        "+2 eau claire",
+        "-1 rive gauche imperméable",
+        "-1 rive droite imperméable",
+        "-1 pas de végétation rive gauche",
+        "-1 pas de végétation rive droite",
+        "le modèle vision-langage propose MODERATE : à vérifier par le citoyen"
+      ],
+      "accord_modele": false,
+      "confiance": 0.55
+    },
+    "arbitrages": {},
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "no animal body is visible",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": []
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/berge_betonnee_01.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.62
+  },
+  {
+    "photo": "berge_betonnee_02.jpg",
+    "valide": false,
+    "message": "Cours d'eau pas assez visible : la photo doit être reprise (voir J2)."
+  },
+  {
+    "photo": "berge_naturelle_00.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "V_SHAPE",
+        "confiance": 0.8,
+        "raison": "The stream appears to be narrow and deep, forming a V-shape",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.8,
+        "raison": "The stream bed is composed of natural materials such as gravel, stones, and sand",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 1.0,
+        "raison": "0% de berge artificielle ; confirmé par le modèle",
+        "source": "regle+vlm"
+      },
+      "water_flow": {
+        "valeur": "SLOW",
+        "confiance": 0.8,
+        "raison": "The water appears calm with gentle ripples",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "MUDDY",
+        "confiance": 0.7,
+        "raison": "turbidité 0.39",
+        "source": "regle"
+      },
+      "barriers": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "20% de végétation, cas limite",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "NO",
+        "confiance": 0.7,
+        "raison": "0% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "SHRUBS",
+        "confiance": 1.0,
+        "raison": "100% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "pas assez de végétation visible",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "MODERATE",
+      "score": 0,
+      "raisons": [
+        "+2 berges naturelles",
+        "-1 eau boueuse",
+        "-1 pas de végétation rive droite",
+        "le modèle vision-langage propose GOOD : à vérifier par le citoyen"
+      ],
+      "accord_modele": false,
+      "confiance": 0.55
+    },
+    "arbitrages": {},
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No animal body parts visible.",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": []
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/berge_naturelle_00.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.56
+  },
+  {
+    "photo": "berge_naturelle_01.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "V_SHAPE",
+        "confiance": 0.8,
+        "raison": "The stream appears to be narrow and deep",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.8,
+        "raison": "The stream bed is covered with moss",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 1.0,
+        "raison": "0% de berge artificielle ; confirmé par le modèle",
+        "source": "regle+vlm"
+      },
+      "water_flow": {
+        "valeur": "FAS",
+        "confiance": 0.8,
+        "raison": "The water is flowing quickly",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "CLEAR",
+        "confiance": 0.78,
+        "raison": "turbidité 0.07 ; blanc = écume naturelle selon le modèle",
+        "source": "regle+arbitrage"
+      },
+      "barriers": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "YES",
+        "confiance": 0.85,
+        "raison": "51% de végétation",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "YES",
+        "confiance": 0.91,
+        "raison": "62% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "SHRUBS",
+        "confiance": 1.0,
+        "raison": "100% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "SHRUBS",
+        "confiance": 1.0,
+        "raison": "100% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "GOOD",
+      "score": 6,
+      "raisons": [
+        "+2 berges naturelles",
+        "+2 eau claire",
+        "+1 végétation rive gauche",
+        "+1 végétation rive droite"
+      ],
+      "accord_modele": true,
+      "confiance": 0.8
+    },
+    "arbitrages": {
+      "ecume_ou_mousse": {
+        "valeur": "NATURAL_WHITEWATER",
+        "confiance": 0.8,
+        "raison": "The white patches on the water surface are caused by the rapid flow and turbulence of the waterfall, which is a natural ",
+        "source": "arbitrage"
+      }
+    },
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No animal body parts are visible.",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": []
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/berge_naturelle_01.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.69
+  },
+  {
+    "photo": "berge_naturelle_02.jpg",
+    "valide": false,
+    "message": "Cours d'eau pas assez visible : la photo doit être reprise (voir J2)."
+  },
+  {
+    "photo": "eau_boueuse_00.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "U_SHAPE",
+        "confiance": 0.8,
+        "raison": "The stream appears to have rounded banks",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.7,
+        "raison": "The stream bed looks natural with visible gravel and stones",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 0.8,
+        "raison": "The banks appear to be natural soil and plants",
+        "source": "vlm"
+      },
+      "water_flow": {
+        "valeur": "SLOW",
+        "confiance": 0.8,
+        "raison": "Ripples indicate slow water flow",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "MUDDY",
+        "confiance": 0.7,
+        "raison": "turbidité 0.41",
+        "source": "regle"
+      },
+      "barriers": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "27%, proche du seuil d'un tiers",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "YES",
+        "confiance": 0.89,
+        "raison": "59% de surfaces artificielles",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "YES",
+        "confiance": 0.97,
+        "raison": "73% de végétation",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "19% de végétation, cas limite",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "TREES",
+        "confiance": 1.0,
+        "raison": "99% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "TREES",
+        "confiance": 0.79,
+        "raison": "57% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "MODERATE",
+      "score": 1,
+      "raisons": [
+        "+2 berges naturelles",
+        "-1 eau boueuse",
+        "-1 rive droite imperméable",
+        "+1 végétation rive gauche"
+      ],
+      "accord_modele": true,
+      "confiance": 0.8
+    },
+    "arbitrages": {},
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No animal body parts visible.",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": []
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/eau_boueuse_00.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.56
+  },
+  {
+    "photo": "eau_boueuse_01.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "U_SHAPE",
+        "confiance": 0.8,
+        "raison": "The stream appears to have a rounded shape with steep banks",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.7,
+        "raison": "The stream bed looks natural with visible gravel and stones",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 1.0,
+        "raison": "15% de berge artificielle ; confirmé par le modèle",
+        "source": "regle+vlm"
+      },
+      "water_flow": {
+        "valeur": "SLOW",
+        "confiance": 0.8,
+        "raison": "There are ripples indicating slow water flow",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "MUDDY",
+        "confiance": 0.77,
+        "raison": "turbidité 0.54",
+        "source": "regle"
+      },
+      "barriers": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No barriers such as weirs or sluices are visible",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "29%, proche du seuil d'un tiers",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "NO",
+        "confiance": 0.99,
+        "raison": "1% de surfaces artificielles",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "18% de végétation, cas limite",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "YES",
+        "confiance": 1.0,
+        "raison": "83% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "TREES",
+        "confiance": 1.0,
+        "raison": "100% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "TREES",
+        "confiance": 0.81,
+        "raison": "62% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "MODERATE",
+      "score": 2,
+      "raisons": [
+        "+2 berges naturelles",
+        "-1 eau boueuse",
+        "+1 végétation rive droite"
+      ],
+      "accord_modele": true,
+      "confiance": 0.8
+    },
+    "arbitrages": {},
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "no animal body is visible",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": []
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/eau_boueuse_01.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.62
+  },
+  {
+    "photo": "eau_boueuse_02.jpg",
+    "valide": false,
+    "message": "Cours d'eau pas assez visible : la photo doit être reprise (voir J2)."
+  },
+  {
+    "photo": "eau_verte_01.jpg",
+    "valide": false,
+    "message": "Cours d'eau pas assez visible : la photo doit être reprise (voir J2)."
+  },
+  {
+    "photo": "eau_verte_02.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "U_SHAPE",
+        "confiance": 0.8,
+        "raison": "The stream has a rounded shape with steep banks",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.7,
+        "raison": "The bottom appears to be natural with visible stones and mud",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 1.0,
+        "raison": "0% de berge artificielle ; confirmé par le modèle",
+        "source": "regle+vlm"
+      },
+      "water_flow": {
+        "valeur": "SLOW",
+        "confiance": 0.8,
+        "raison": "The water appears calm with no visible ripples",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "ALTERED_COLOR",
+        "confiance": 0.74,
+        "raison": "eau verte sur 19% de la surface",
+        "source": "regle"
+      },
+      "barriers": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "YES",
+        "confiance": 1.0,
+        "raison": "100% de végétation",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "YES",
+        "confiance": 1.0,
+        "raison": "93% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "HERBS",
+        "confiance": 0.91,
+        "raison": "81% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "HERBS",
+        "confiance": 1.0,
+        "raison": "100% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "MODERATE",
+      "score": 2,
+      "raisons": [
+        "+2 berges naturelles",
+        "-2 couleur de l'eau anormale",
+        "+1 végétation rive gauche",
+        "+1 végétation rive droite"
+      ],
+      "accord_modele": true,
+      "confiance": 0.8
+    },
+    "arbitrages": {},
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "no animal body visible",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": []
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/eau_verte_02.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.69
+  },
+  {
+    "photo": "mousse_00.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "V_SHAPE",
+        "confiance": 0.8,
+        "raison": "The stream appears to be narrow and deep, forming a V-shape",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.7,
+        "raison": "The stream bed is visible and consists of natural materials",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 1.0,
+        "raison": "0% de berge artificielle ; confirmé par le modèle",
+        "source": "regle+vlm"
+      },
+      "water_flow": {
+        "valeur": "FAS",
+        "confiance": 0.8,
+        "raison": "Water appears to be flowing quickly",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "CLEAR",
+        "confiance": 0.72,
+        "raison": "turbidité 0.13 ; blanc = écume naturelle selon le modèle",
+        "source": "regle+arbitrage"
+      },
+      "barriers": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "YES",
+        "confiance": 0.83,
+        "raison": "46% de végétation",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "YES",
+        "confiance": 1.0,
+        "raison": "100% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "TREES",
+        "confiance": 0.9,
+        "raison": "80% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "TREES",
+        "confiance": 0.81,
+        "raison": "62% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "GOOD",
+      "score": 6,
+      "raisons": [
+        "+2 berges naturelles",
+        "+2 eau claire",
+        "+1 végétation rive gauche",
+        "+1 végétation rive droite"
+      ],
+      "accord_modele": true,
+      "confiance": 0.8
+    },
+    "arbitrages": {
+      "ecume_ou_mousse": {
+        "valeur": "NATURAL_WHITEWATER",
+        "confiance": 0.8,
+        "raison": "The white patches on the water surface are caused by rapids, a waterfall, a weir or turbulence, which is a natural pheno",
+        "source": "arbitrage"
+      }
+    },
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No animal body parts visible.",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": []
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/mousse_00.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.69
+  },
+  {
+    "photo": "mousse_01.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "V_SHAPE",
+        "confiance": 0.8,
+        "raison": "The stream appears to be narrow and deep, forming a V-shape",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 1.0,
+        "raison": "23% de berge artificielle ; confirmé par le modèle",
+        "source": "regle+vlm"
+      },
+      "water_flow": {
+        "valeur": "FAS",
+        "confiance": 0.8,
+        "raison": "The water has visible ripples indicating fast flow",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "CLEAR",
+        "confiance": 0.74,
+        "raison": "turbidité 0.11 ; blanc = écume naturelle selon le modèle",
+        "source": "regle+arbitrage"
+      },
+      "barriers": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No barriers such as weirs, dams, or sluices are visible",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "YES",
+        "confiance": 0.8,
+        "raison": "There is a visible discharge of dirty water",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No construction works, machinery, or building sites are visible",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NO",
+        "confiance": 0.66,
+        "raison": "17% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "31%, proche du seuil d'un tiers",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "YES",
+        "confiance": 1.0,
+        "raison": "83% de végétation",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "YES",
+        "confiance": 0.92,
+        "raison": "64% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "TREES",
+        "confiance": 0.99,
+        "raison": "99% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "TREES",
+        "confiance": 0.9,
+        "raison": "80% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "GOOD",
+      "score": 3,
+      "raisons": [
+        "+2 berges naturelles",
+        "+2 eau claire",
+        "-3 rejet d'eaux usées",
+        "+1 végétation rive gauche",
+        "+1 végétation rive droite",
+        "le modèle vision-langage propose POOR : à vérifier par le citoyen"
+      ],
+      "accord_modele": false,
+      "confiance": 0.55
+    },
+    "arbitrages": {
+      "ecume_ou_mousse": {
+        "valeur": "NATURAL_WHITEWATER",
+        "confiance": 0.8,
+        "raison": "The white patches on the water surface appear to be caused by rapids, a waterfall, a weir or turbulence.",
+        "source": "arbitrage"
+      }
+    },
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "no animal body visible",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": []
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/mousse_01.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.75
+  },
+  {
+    "photo": "mousse_02.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "V_SHAPE",
+        "confiance": 0.8,
+        "raison": "The stream appears to be narrow and deep, forming a V-shape",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.7,
+        "raison": "The stream bed looks natural with visible rocks and stones",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 1.0,
+        "raison": "0% de berge artificielle ; confirmé par le modèle",
+        "source": "regle+vlm"
+      },
+      "water_flow": {
+        "valeur": "FAS",
+        "confiance": 0.8,
+        "raison": "The water has visible ripples indicating fast flow",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "CLEAR",
+        "confiance": 0.75,
+        "raison": "turbidité 0.10 ; blanc = écume naturelle selon le modèle",
+        "source": "regle+arbitrage"
+      },
+      "barriers": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No barriers such as weirs, dams, or sluices are visible",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "24% de végétation, cas limite",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "YES",
+        "confiance": 0.84,
+        "raison": "48% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "HERBS",
+        "confiance": 0.77,
+        "raison": "53% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "TREES",
+        "confiance": 1.0,
+        "raison": "100% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "GOOD",
+      "score": 5,
+      "raisons": [
+        "+2 berges naturelles",
+        "+2 eau claire",
+        "+1 végétation rive droite",
+        "le modèle vision-langage propose MODERATE : à vérifier par le citoyen"
+      ],
+      "accord_modele": false,
+      "confiance": 0.55
+    },
+    "arbitrages": {
+      "ecume_ou_mousse": {
+        "valeur": "NATURAL_WHITEWATER",
+        "confiance": 0.8,
+        "raison": "The white patches on the water surface appear to be caused by rapids, a waterfall, a weir, or turbulence.",
+        "source": "arbitrage"
+      }
+    },
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No animal body parts visible",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": []
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/mousse_02.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.69
+  },
+  {
+    "photo": "dechets_000.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "U_SHAPE",
+        "confiance": 0.8,
+        "raison": "The river has a rounded shape with steep banks",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.7,
+        "raison": "The bottom appears to be made of natural materials",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 0.82,
+        "raison": "16% de berge artificielle (sources en désaccord)",
+        "source": "regle"
+      },
+      "water_flow": {
+        "valeur": "SLOW",
+        "confiance": 0.8,
+        "raison": "The water is calm with no visible ripples",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "CLEAR",
+        "confiance": 0.61,
+        "raison": "turbidité 0.24",
+        "source": "regle"
+      },
+      "barriers": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No barriers such as weirs or dams are visible",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "10% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "22%, proche du seuil d'un tiers",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "NO",
+        "confiance": 0.7,
+        "raison": "2% de végétation",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "YES",
+        "confiance": 0.85,
+        "raison": "49% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "TREES",
+        "confiance": 1.0,
+        "raison": "100% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "SHRUBS",
+        "confiance": 0.89,
+        "raison": "77% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "MODERATE",
+      "score": 2,
+      "raisons": [
+        "+2 berges naturelles",
+        "+2 eau claire",
+        "-1 pas de végétation rive gauche",
+        "+1 végétation rive droite",
+        "-2 7 déchet(s) détecté(s)"
+      ],
+      "accord_modele": true,
+      "confiance": 0.8
+    },
+    "arbitrages": {},
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "no animal body is visible",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": [
+        {
+          "classe": "carton",
+          "confiance": 0.81,
+          "boite": [
+            942,
+            348,
+            975,
+            361
+          ]
+        },
+        {
+          "classe": "bottle",
+          "confiance": 0.66,
+          "boite": [
+            845,
+            346,
+            859,
+            361
+          ]
+        },
+        {
+          "classe": "bottle",
+          "confiance": 0.57,
+          "boite": [
+            618,
+            345,
+            649,
+            357
+          ]
+        },
+        {
+          "classe": "bottle",
+          "confiance": 0.51,
+          "boite": [
+            782,
+            348,
+            820,
+            358
+          ]
+        },
+        {
+          "classe": "bottle",
+          "confiance": 0.5,
+          "boite": [
+            619,
+            347,
+            647,
+            358
+          ]
+        },
+        {
+          "classe": "bottle",
+          "confiance": 0.45,
+          "boite": [
+            636,
+            354,
+            665,
+            365
+          ]
+        },
+        {
+          "classe": "bottle",
+          "confiance": 0.42,
+          "boite": [
+            788,
+            340,
+            815,
+            354
+          ]
+        }
+      ]
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/dechets_000.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.69
+  },
+  {
+    "photo": "dechets_001.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "FLAT",
+        "confiance": 0.8,
+        "raison": "The stream appears to be wide and flat",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.8,
+        "raison": "The bottom is composed of natural materials",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 0.83,
+        "raison": "13% de berge artificielle (sources en désaccord)",
+        "source": "regle"
+      },
+      "water_flow": {
+        "valeur": "SLOW",
+        "confiance": 0.8,
+        "raison": "Ripples are visible",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "ALTERED_COLOR",
+        "confiance": 0.75,
+        "raison": "eau verte sur 20% de la surface",
+        "source": "regle"
+      },
+      "barriers": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "27%, proche du seuil d'un tiers",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "YES",
+        "confiance": 0.76,
+        "raison": "32% de végétation",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "YES",
+        "confiance": 0.76,
+        "raison": "33% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "TREES",
+        "confiance": 0.99,
+        "raison": "99% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "TREES",
+        "confiance": 0.84,
+        "raison": "69% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "POOR",
+      "score": -3,
+      "raisons": [
+        "-3 animal mort signalé (à confirmer par un humain)",
+        "+2 berges naturelles",
+        "-2 couleur de l'eau anormale",
+        "+1 végétation rive gauche",
+        "+1 végétation rive droite",
+        "-2 6 déchet(s) détecté(s)",
+        "le modèle vision-langage propose MODERATE : à vérifier par le citoyen"
+      ],
+      "accord_modele": false,
+      "confiance": 0.55
+    },
+    "arbitrages": {},
+    "signalements": {
+      "animal_mort": {
+        "valeur": "YES",
+        "confiance": 0.8,
+        "raison": "A fish is visible in the water.",
+        "source": "vlm",
+        "a_valider": true
+      },
+      "dechets": [
+        {
+          "classe": "bottle",
+          "confiance": 0.78,
+          "boite": [
+            348,
+            248,
+            368,
+            257
+          ]
+        },
+        {
+          "classe": "paper",
+          "confiance": 0.6,
+          "boite": [
+            30,
+            248,
+            45,
+            253
+          ]
+        },
+        {
+          "classe": "carton",
+          "confiance": 0.58,
+          "boite": [
+            705,
+            229,
+            715,
+            235
+          ]
+        },
+        {
+          "classe": "carton",
+          "confiance": 0.54,
+          "boite": [
+            740,
+            234,
+            755,
+            243
+          ]
+        },
+        {
+          "classe": "paper",
+          "confiance": 0.5,
+          "boite": [
+            30,
+            247,
+            46,
+            256
+          ]
+        },
+        {
+          "classe": "bottle",
+          "confiance": 0.41,
+          "boite": [
+            386,
+            230,
+            393,
+            239
+          ]
+        }
+      ]
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/dechets_001.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.62
+  },
+  {
+    "photo": "dechets_002.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "FLAT",
+        "confiance": 0.8,
+        "raison": "The channel appears wide and flat",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.7,
+        "raison": "The bottom seems to be natural",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "LAYED_STONES",
+        "confiance": 0.6,
+        "raison": "There are placed stones along the bank",
+        "source": "vlm"
+      },
+      "water_flow": {
+        "valeur": "SLOW",
+        "confiance": 0.8,
+        "raison": "The water is calm with no visible ripples",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "ALTERED_COLOR",
+        "confiance": 0.74,
+        "raison": "eau verte sur 19% de la surface",
+        "source": "regle"
+      },
+      "barriers": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No barriers are visible",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NO",
+        "confiance": 0.96,
+        "raison": "2% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "YES",
+        "confiance": 0.91,
+        "raison": "63% de surfaces artificielles",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "YES",
+        "confiance": 1.0,
+        "raison": "92% de végétation",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "22% de végétation, cas limite",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "HERBS",
+        "confiance": 0.75,
+        "raison": "50% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "HERBS",
+        "confiance": 0.86,
+        "raison": "72% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "POOR",
+      "score": -3,
+      "raisons": [
+        "+0 berges en pierres posées",
+        "-2 couleur de l'eau anormale",
+        "-1 rive droite imperméable",
+        "+1 végétation rive gauche",
+        "-1 1 déchet(s) détecté(s)",
+        "le modèle vision-langage propose MODERATE : à vérifier par le citoyen"
+      ],
+      "accord_modele": false,
+      "confiance": 0.55
+    },
+    "arbitrages": {},
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "no animal body is visible",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": [
+        {
+          "classe": "carton",
+          "confiance": 0.65,
+          "boite": [
+            619,
+            241,
+            634,
+            250
+          ]
+        }
+      ]
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/dechets_002.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.69
+  },
+  {
+    "photo": "dechets_003.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "U_SHAPE",
+        "confiance": 0.8,
+        "raison": "The river appears to have rounded edges",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.7,
+        "raison": "The bottom seems to be made of natural materials",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 0.6,
+        "raison": "The banks appear to be natural soil and plants",
+        "source": "vlm"
+      },
+      "water_flow": {
+        "valeur": "SLOW",
+        "confiance": 0.8,
+        "raison": "There are ripples indicating slow movement",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "ALTERED_COLOR",
+        "confiance": 0.89,
+        "raison": "eau verte sur 34% de la surface",
+        "source": "regle"
+      },
+      "barriers": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No barriers are visible",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "YES",
+        "confiance": 0.92,
+        "raison": "63% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "21%, proche du seuil d'un tiers",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "9% de végétation, cas limite",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "YES",
+        "confiance": 0.9,
+        "raison": "60% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "aucun étage ne dépasse 50 %",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "TREES",
+        "confiance": 1.0,
+        "raison": "100% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "POOR",
+      "score": -2,
+      "raisons": [
+        "+2 berges naturelles",
+        "-2 couleur de l'eau anormale",
+        "-1 rive gauche imperméable",
+        "+1 végétation rive droite",
+        "-2 4 déchet(s) détecté(s)",
+        "le modèle vision-langage propose MODERATE : à vérifier par le citoyen"
+      ],
+      "accord_modele": false,
+      "confiance": 0.55
+    },
+    "arbitrages": {},
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "no animal body is visible",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": [
+        {
+          "classe": "bottle",
+          "confiance": 0.77,
+          "boite": [
+            230,
+            186,
+            257,
+            196
+          ]
+        },
+        {
+          "classe": "bottle",
+          "confiance": 0.68,
+          "boite": [
+            900,
+            167,
+            923,
+            177
+          ]
+        },
+        {
+          "classe": "bottle",
+          "confiance": 0.66,
+          "boite": [
+            480,
+            178,
+            494,
+            188
+          ]
+        },
+        {
+          "classe": "bottle",
+          "confiance": 0.51,
+          "boite": [
+            526,
+            187,
+            537,
+            199
+          ]
+        }
+      ]
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/dechets_003.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.56
+  },
+  {
+    "photo": "dechets_004.jpg",
+    "valide": true,
+    "orientation": "aval",
+    "formulaire": {
+      "channel_form": {
+        "valeur": "FLAT",
+        "confiance": 0.8,
+        "raison": "The channel appears wide and flat",
+        "source": "vlm"
+      },
+      "bottom_type": {
+        "valeur": "NAT",
+        "confiance": 0.8,
+        "raison": "The bottom is composed of natural materials",
+        "source": "vlm"
+      },
+      "bank_type": {
+        "valeur": "NAT",
+        "confiance": 0.79,
+        "raison": "23% de berge artificielle (sources en désaccord)",
+        "source": "regle"
+      },
+      "water_flow": {
+        "valeur": "SLOW",
+        "confiance": 0.8,
+        "raison": "The water is calm with no visible ripples",
+        "source": "vlm"
+      },
+      "water_aspect": {
+        "valeur": "ALTERED_COLOR",
+        "confiance": 0.75,
+        "raison": "eau verte sur 20% de la surface",
+        "source": "regle"
+      },
+      "barriers": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "No barriers are visible",
+        "source": "vlm"
+      },
+      "draining_pipes": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "sewage_discharge": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "construction": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      },
+      "impervious_left": {
+        "valeur": "NO",
+        "confiance": 1.0,
+        "raison": "0% de surfaces artificielles",
+        "source": "regle"
+      },
+      "impervious_right": {
+        "valeur": "YES",
+        "confiance": 0.84,
+        "raison": "48% de surfaces artificielles",
+        "source": "regle"
+      },
+      "vegetation_left": {
+        "valeur": "YES",
+        "confiance": 1.0,
+        "raison": "82% de végétation",
+        "source": "regle"
+      },
+      "vegetation_right": {
+        "valeur": "YES",
+        "confiance": 0.73,
+        "raison": "26% de végétation",
+        "source": "regle"
+      },
+      "vegetation_type_left": {
+        "valeur": "HERBS",
+        "confiance": 0.8,
+        "raison": "60% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_type_right": {
+        "valeur": "HERBS",
+        "confiance": 0.88,
+        "raison": "76% de la végétation",
+        "source": "regle"
+      },
+      "vegetation_cuts": {
+        "valeur": "NOT_SURE",
+        "confiance": 0.0,
+        "raison": "réponse du modèle hors options",
+        "source": "vlm"
+      }
+    },
+    "overall_assessment": {
+      "valeur": "MODERATE",
+      "score": 0,
+      "raisons": [
+        "+2 berges naturelles",
+        "-2 couleur de l'eau anormale",
+        "-1 rive droite imperméable",
+        "+1 végétation rive gauche",
+        "+1 végétation rive droite",
+        "-1 2 déchet(s) détecté(s)",
+        "le modèle vision-langage propose GOOD : à vérifier par le citoyen"
+      ],
+      "accord_modele": false,
+      "confiance": 0.55
+    },
+    "arbitrages": {},
+    "signalements": {
+      "animal_mort": {
+        "valeur": "NO",
+        "confiance": 0.8,
+        "raison": "no animal body is visible",
+        "source": "vlm",
+        "a_valider": false
+      },
+      "dechets": [
+        {
+          "classe": "plastic",
+          "confiance": 0.71,
+          "boite": [
+            77,
+            219,
+            104,
+            230
+          ]
+        },
+        {
+          "classe": "plastic",
+          "confiance": 0.71,
+          "boite": [
+            161,
+            221,
+            184,
+            233
+          ]
+        }
+      ]
+    },
+    "image_annotee": "/content/drive/MyDrive/streamsentinel/annotees/dechets_004.jpg",
+    "laisses_au_citoyen": {
+      "research_site": "choix du site officiel",
+      "water_height": "mesure physique, impossible sur photo",
+      "water_withdrawal": "pompage rarement visible",
+      "habitats": "sous-options non relevées dans l'app",
+      "natural_debris": "sous-options non relevées dans l'app",
+      "invasive_species": "liste d'espèces non relevée dans l'app",
+      "feelings": "ressenti personnel : l'IA ne le remplit jamais"
+    },
+    "taux_prefill": 0.75
+  }
+]
