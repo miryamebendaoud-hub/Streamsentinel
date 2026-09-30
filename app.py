@@ -402,7 +402,8 @@ def ligne_niveau(titre, bloc, avec_score=True):
     couleur = COULEURS.get(norm(bloc["niveau"]), "gray")
     score = f" (score {bloc['score']})" if avec_score else ""
     st.markdown(f"**{titre}**: :{couleur}[**{level(bloc['niveau'])}**]{score}")
-    st.caption(tr(bloc.get("consigne", "")))
+    consigne = bloc.get("consigne", "")
+    st.caption(CONSIGNES_EN.get(consigne.strip(), tr(consigne)))
 
 
 def afficher_risque(r, detaille=True):
@@ -658,6 +659,20 @@ def analyser_echantillon(f, r, img, lieu):
     st.session_state.pop("echantillon", None)
     st.session_state.pop("lieu", None)
     st.rerun()
+
+
+# Safety tips written in French by the risk code, shown in English
+CONSIGNES_EN = {
+    "Pas de danger visible. Évitez tout de même de boire l'eau.": "No visible danger. Still, do not drink the water.",
+    "Évitez le contact avec l'eau et lavez-vous les mains après la visite.":
+        "Avoid contact with the water and wash your hands after the visit.",
+    "Ne touchez pas l'eau. Signalement transmis au gestionnaire pour vérification.":
+        "Do not touch the water. Report sent to the manager for checking.",
+    "Pas de danger visible pour les animaux.": "No visible danger for animals.",
+    "Empêchez votre chien de boire ou de se baigner.": "Keep your dog from drinking or swimming.",
+    "Tenez les animaux en laisse, loin de l'eau. Signalement transmis au gestionnaire.":
+        "Keep animals on a lead, away from the water. Report sent to the manager.",
+}
 
 
 def secret(nom):
