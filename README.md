@@ -2,15 +2,20 @@
 
 AI help for citizens who check urban streams. Built for the OneAquaHealth IEEE Global Hackathon 2026, Track 3 (AI-Supported Assessment).
 
+**Live demo:** https://streamsentinel.streamlit.app
+**Video:** [add the YouTube link here]
+
 ## The problem
 
 Citizens who report on a stream often send data that is uneven and hard to use. The OneAquaHealth citizen app asks many questions, and some of them are difficult for a non-expert.
 
-StreamSentinel looks at the citizen's photo and pre-fills part of the OneAquaHealth form. It also estimates a risk level for people and for animals, using the photo together with public weather and river flow data. The citizen checks every answer before sending. No alert is sent without a manager's validation.
+StreamSentinel is an AI companion for the OneAquaHealth citizen app. It looks at the citizen's photo and pre-fills part of the OneAquaHealth form. It also estimates a risk level for people and for animals, using the photo together with live weather and river flow data. The citizen checks every answer before sending. No alert is sent without a manager's validation.
+
+On unseen photos, the AI pre-fills 61% of the questions. The citizen checks them and answers the rest.
 
 ## How it works
 
-We did not train a big model from scratch. The pipeline combines pretrained models, image processing and one small detector that we fine-tuned. It was built in steps, one notebook per day.
+We did not train a big model from scratch. The pipeline combines pretrained models, image processing and one small detector that we fine-tuned. It was built in steps, one notebook per day, in the `notebooks` folder.
 
 | Day | What it does | Main tools |
 |---|---|---|
@@ -22,6 +27,22 @@ We did not train a big model from scratch. The pipeline combines pretrained mode
 | J6 | Fixes the errors found in J4 | |
 
 When the model is not sure, it answers NOT_SURE instead of guessing. The question is then left to the citizen.
+
+```mermaid
+flowchart LR
+    A[Citizen photo and place] --> B[Photo check]
+    B --> C[Scene segmentation]
+    C --> D[Vision-language model]
+    C --> E[Litter detector]
+    D --> F[Pre-filled form]
+    E --> F
+    F --> G[Risk score with weather and river flow]
+    G --> H[Citizen checks and sends]
+    H --> I{High risk?}
+    I -- yes --> J[Manager validates]
+    I -- no --> K[FHIR observation]
+    J --> K
+```
 
 ## Results
 
@@ -36,6 +57,8 @@ We first measured our models on the photos we used to build them. The numbers lo
 The litter detector reached a mAP50 of 0.796 on its own validation set of 599 images. On the external set it misses more than half of the litter, so "no litter detected" does not mean the stream is clean. Lowering the detection threshold did not really help (best F1 0.557 against 0.548), so we kept it at 0.25.
 
 Some questions are answered well. Bank type was right 100% of the time and water appearance 89% of the time. Others were close to chance. The model almost never answers the hardest questions, like sewage discharge or vegetation cuts, and we think this is the right behaviour.
+
+The notebooks, the annotations and the raw outputs of the evaluation are in the `evaluation` folder.
 
 ## What we changed after the evaluation
 
@@ -53,13 +76,25 @@ A low risk gives a simple safety tip. A high risk is sent to the manager's queue
 
 ## The app
 
-The app has three spaces.
+The app has two roles and one transparency page.
 
-1. New observation. The citizen sends a photo and picks the place on a map of the 106 OneAquaHealth research sites. The form then opens in six steps, like the official app. Under each answer, a tag shows if it was suggested by the AI, changed by the citizen or left for the citizen.
-2. Analysed examples. Photos analysed in advance, so the app works without the GPU.
-3. Manager. The validation queue for high risk observations, with a table that explains every point of the risk score.
+1. **Report a stream, for citizens.** The citizen chooses a photo and the place, on a map of the 106 OneAquaHealth research sites. The form then opens in six steps, like the official app. Under each answer, a tag shows if it was suggested by the AI, changed by the citizen or left for the citizen. At the end, the citizen sees the risk, sends the observation and can download it in FHIR.
+2. **Validation queue, for managers.** High risk observations wait here. The manager sees the photo, the rules behind the score and the citizen's corrections, then validates or rejects the alert. A validated observation is exported in FHIR with the status final.
+3. **How the AI decides, about the AI.** Every answer the AI proposed on our test set, with its confidence, its source and its reason. This page only shows, it never changes an observation.
 
-Observations can be exported as FHIR R4, following the draft OneAquaHealth implementation guide (hl7-eu/oah). The export also includes the answer codes used by the OneAquaHealth app.
+**Demo mode.** The live analysis of a new photo needs a GPU, which we only switch on for demo sessions. When it is off, the online app offers photos that our pipeline analysed in advance. The form answers are the real outputs of the AI on these photos. The risk is computed live, with the current weather and river flow of the place. For the simulation, each sample photo is placed at a OneAquaHealth research site.
+
+Observations are exported as FHIR R4, following the draft OneAquaHealth implementation guide (hl7-eu/oah). The export also includes the answer codes used by the OneAquaHealth app.
+
+## From prototype to real use
+
+StreamSentinel is built to plug into the existing OneAquaHealth tools, not to replace them.
+
+1. The OneAquaHealth citizen app sends the photo and the place to the StreamSentinel analysis, which is a simple web API.
+2. The API answers with the pre-filled form, using the exact answer codes of the app. The citizen checks it in the app, as today.
+3. The validated observation goes back as a FHIR resource, which health and research systems can read directly.
+
+The analysis takes about 35 seconds per photo on a small T4 GPU, so one GPU can handle around a hundred photos per hour. For permanent use, the API would move from Colab to a hosted GPU service. The `notebooks/API_streamsentinel.ipynb` notebook already contains the full API.
 
 ## Limits
 
@@ -82,14 +117,16 @@ pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-The Analysed examples and Manager spaces work right away. For the live analysis, run the notebook `API_streamsentinel.ipynb` in Google Colab with a T4 GPU, then put its address in `.streamlit/secrets.toml` as `API_URL`.
+The whole app works right away in demo mode. For the live analysis, run `notebooks/API_streamsentinel.ipynb` in Google Colab with a T4 GPU, then put its address in `.streamlit/secrets.toml` as `API_URL`.
 
-The pipeline notebooks (J1 to J5) also run in Colab. J3 needs a Roboflow API key, saved in the Colab secrets as `ROBOFLOW_API_KEY`.
+The pipeline notebooks in `notebooks` (J1 to J5) also run in Colab. J3 needs a Roboflow API key, saved in the Colab secrets as `ROBOFLOW_API_KEY`.
 
 ## Data and credits
 
-Test photos come from Wikimedia Commons, with their licences listed in `credits_photos.csv`. The litter data comes from Roboflow Universe (RF100-VL under MIT, Floating Trash Detection under CC BY 4.0). The research sites come from the OneAquaHealth ENORA API.
+Test and sample photos come from Wikimedia Commons and Roboflow Universe. The licences of the evaluation photos are listed in `evaluation/credits.csv`. The litter data comes from Roboflow Universe (RF100-VL under MIT, Floating Trash Detection under CC BY 4.0). The research sites come from the OneAquaHealth ENORA API.
 
 The risk rules cite the OneAquaHealth Key Indicators of Ecosystem and Biological Health factsheets by Schmeller et al. (2026), doi 10.5281/zenodo.20345207, under CC BY 4.0.
+
+We used an AI coding assistant to help write and review parts of the code and the documentation. All design choices, annotations and evaluations are ours.
 
 The list of recent changes is in `CHANGELOG.md`.
