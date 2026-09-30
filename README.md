@@ -3,7 +3,7 @@
 AI help for citizens who check urban streams. Built for the OneAquaHealth IEEE Global Hackathon 2026, Track 3 (AI-Supported Assessment).
 
 **Live demo:** https://streamsentinel.streamlit.app
-**Video:** [add the YouTube link here]
+
 
 ## The problem
 
