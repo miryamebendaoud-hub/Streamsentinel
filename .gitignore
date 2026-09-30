@@ -7,4 +7,4 @@ demo/decisions.json
 .streamlit/secrets.toml
 .DS_Store
 __pycache__/
-.streamlit/
+.streamlit/secrets.toml

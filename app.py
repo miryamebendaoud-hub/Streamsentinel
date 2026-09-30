@@ -1,10 +1,11 @@
-"""StreamSentinel — demo interface.
+"""StreamSentinel, an AI companion for the OneAquaHealth citizen app.
 
-Three spaces:
-- New observation: the citizen sends a photo, the Colab API (GPU) analyses it live,
-  then the citizen checks and completes the pre-filled form before sending it;
-- Analysed examples: the photos of the test set, analysed in advance (works without Colab);
-- Manager: validation queue for high-risk observations.
+Two roles and one transparency page:
+- Report a stream (citizen): photo, AI pre-filled form in 6 steps, risk, sending, FHIR download.
+  Live analysis runs in Colab (team sessions) or on a Hugging Face Space. When neither is on,
+  the citizen flow opens on photos analysed in advance with the same pipeline (demo mode).
+- Validation queue (manager): high-risk observations wait for a human decision, then FHIR export.
+- How the AI decides (about the AI): every AI answer on the test set, with confidence, source and reason.
 
 Run from the project root:  python -m streamlit run app.py
 """
@@ -23,6 +24,7 @@ import folium
 from streamlit_folium import st_folium
 
 from fhir_export import record_to_fhir
+import risk_score
 from i18n import tr, level, SOURCES, ORIENTATIONS
 
 DEMO = Path(__file__).parent / "demo"
@@ -30,7 +32,7 @@ DECISIONS = DEMO / "decisions.json"
 OBSERVATIONS = DEMO / "observations"
 SITES = DEMO / "sites_oah.json"   # OneAquaHealth research sites (ENORA API)
 
-st.set_page_config(page_title="StreamSentinel", page_icon="🌊", layout="wide")
+st.set_page_config(page_title="StreamSentinel", layout="wide")
 
 # ---------- OneAquaHealth form (from the J4 notebook) ----------
 # field: (step of the citizen app, options)
@@ -89,6 +91,74 @@ VALEURS = {
     "GOOD": "Good", "MODERATE": "Moderate", "POOR": "Poor",
 }
 COULEURS = {"FAIBLE": "green", "MODERE": "orange", "ELEVE": "red"}
+
+
+st.markdown("""<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap');
+:root {--deep: #0F3B53; --stream: #2F6F8F; --mist: #E6F0F5; --page: #F5F9FB; --ink: #1F2D3A; --muted: #51606E;}
+.stApp {background: var(--page);}
+.stApp, .stApp p, .stApp label, .stApp input, .stApp textarea, .stApp button, .stApp li,
+.stApp h2, .stApp h3, .stApp h4 {font-family: 'Barlow', 'Helvetica Neue', Arial, sans-serif;}
+.stApp h2, .stApp h3 {font-weight: 600; color: var(--ink);}
+[data-testid="stToolbar"], #MainMenu, footer {display: none;}
+header[data-testid="stHeader"] {background: transparent;}
+.block-container {padding-top: 1.6rem; max-width: 1180px;}
+
+/* Sidebar: deep water */
+[data-testid="stSidebar"] {background: var(--deep);}
+[data-testid="stSidebar"] p, [data-testid="stSidebar"] label, [data-testid="stSidebar"] span,
+[data-testid="stSidebar"] summary {color: #DCEAF1 !important;}
+[data-testid="stSidebar"] input {color: var(--ink) !important;}
+.ss-brand {font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.7rem; color: #FFFFFF;
+           margin: 0.4rem 0 0.4rem 0; letter-spacing: -0.01em;}
+.ss-brand-line {font-size: 0.95rem; color: #A9C7D6; line-height: 1.5; margin-bottom: 1.6rem;}
+
+/* Page header: the one strong element, a band of water with a wave edge */
+.ss-hero {position: relative; background: var(--deep); color: #FFFFFF; border-radius: 12px;
+          padding: 2.2rem 2.4rem 3.4rem 2.4rem; margin-bottom: 1.8rem; overflow: hidden;}
+.ss-hero h1 {font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 2.6rem; line-height: 1.1;
+             color: #FFFFFF; margin: 0 0 0.7rem 0; padding: 0; letter-spacing: -0.015em;}
+.ss-role {text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.8rem; font-weight: 600;
+           color: #8FC3DA; margin-bottom: 0.5rem;}
+.ss-hero p {font-size: 1.12rem; color: #CFE2EC; max-width: 60ch; margin: 0; line-height: 1.55;}
+.ss-hero svg {position: absolute; left: 0; bottom: -1px; width: 100%; height: 38px;}
+
+.ss-note {border-left: 3px solid var(--stream); background: var(--mist); padding: 0.85rem 1.1rem;
+          border-radius: 0 8px 8px 0; color: var(--ink); margin: 0 0 1.4rem 0; max-width: 78ch;}
+div[data-testid="stVerticalBlockBorderWrapper"] {background: #FFFFFF; border-color: #DCE7ED !important;}
+.ss-thumb {width: 100%; height: 190px; object-fit: cover; border-radius: 8px; display: block;}
+.ss-thumb-label {font-weight: 600; color: var(--ink); margin: 0.55rem 0 0.4rem 0;}
+.ss-thumb-small {height: 130px;}
+.ss-drop {height: 220px; border: 2px dashed #B7C9D3; border-radius: 10px; display: flex; align-items: center;
+          justify-content: center; color: var(--muted); background: #FFFFFF;}
+.ss-thumb-on {outline: 3px solid var(--stream); outline-offset: 2px;}
+.ss-thumb-meta {font-size: 0.88rem; color: var(--muted); margin-bottom: 0.5rem;}
+.ss-stats {display: flex; gap: 0.8rem; margin: 0 0 1.4rem 0; flex-wrap: wrap;}
+.ss-stats div {flex: 1 1 180px; background: #FFFFFF; border: 1px solid #DCE7ED; border-radius: 10px;
+               padding: 0.9rem 1.1rem;}
+.ss-stats b {display: block; font-family: 'Fraunces', Georgia, serif; font-size: 2.1rem; color: var(--deep);
+             line-height: 1.1;}
+.ss-stats span {font-size: 0.95rem; color: var(--muted);}
+.ss-stats .ss-stat-unsure {border-color: #C9A45C; background: #FFF9EE;}
+.ss-stats .ss-stat-unsure b {color: #7A5410;}
+.ss-unsure {background: #FFF4DF; color: #6E4608; border: 1px solid #E3C07E;}
+.ss-tag {display: inline-block; padding: 1px 10px; border-radius: 4px; font-size: 0.85rem;
+         margin: 2px 0 6px 0; line-height: 1.6;}
+.ss-ai {background: #DCEBF2; color: #174A63;}
+.ss-you {background: #FBEFD9; color: #6E4608;}
+.ss-todo {background: #EEF1F4; color: #3D4A56;}
+.ss-off {background: #EEF1F4; color: #3D4A56; border: 1px dashed #B7C2CC;}
+</style>""", unsafe_allow_html=True)
+
+WAVE = ('<svg viewBox="0 0 1200 38" preserveAspectRatio="none" aria-hidden="true">'
+        '<path d="M0,22 C150,6 300,36 450,22 C600,8 750,34 900,20 C1020,9 1110,26 1200,18 L1200,38 L0,38 Z" '
+        'fill="#F5F9FB"/></svg>')
+
+
+def hero(titre, texte="", role=""):
+    st.markdown('<div class="ss-hero">' + (f'<div class="ss-role">{role}</div>' if role else "")
+                + f"<h1>{titre}</h1>" + (f"<p>{texte}</p>" if texte else "")
+                + WAVE + "</div>", unsafe_allow_html=True)
 
 
 # ---------- Outils ----------
@@ -243,7 +313,7 @@ def site_proche(sites, lat, lon):
 
 
 def nom_site(site):
-    return " · ".join(v for v in (site.get("ville"), site.get("code"), site.get("nom")) if v)
+    return ", ".join(v for v in (site.get("ville"), site.get("code"), site.get("nom")) if v)
 
 
 def choisir_lieu():
@@ -251,8 +321,11 @@ def choisir_lieu():
     sites = charger_sites()
     lieu = st.session_state.get("lieu")
 
-    st.markdown("**Where are you?**")
-    if sites:
+    st.markdown("#### Where are you?")
+    fixe = bool(lieu and lieu.get("demo"))    # sample photo: its place is set, no choice
+    if fixe:
+        pass
+    elif sites:
         st.caption(f"Click one of the {len(sites)} OneAquaHealth research sites (blue dots), "
                    "or anywhere on the map if you are elsewhere.")
     else:
@@ -268,15 +341,18 @@ def choisir_lieu():
         centre, zoom = [46.6, 2.4], 5
     carte = folium.Map(location=centre, zoom_start=zoom, tiles="OpenStreetMap")
     for x in sites:
-        folium.CircleMarker([x["lat"], x["lon"]], radius=6, color="#1d4ed8", fill=True,
+        folium.CircleMarker([x["lat"], x["lon"]], radius=6, color="#2F6F8F", fill=True,
                             fill_opacity=0.8, tooltip=nom_site(x)).add_to(carte)
     if lieu:
         folium.Marker([lieu["lat"], lieu["lon"]], icon=folium.Icon(color="red", icon="camera", prefix="fa"),
                       tooltip="Your observation").add_to(carte)
-    retour = st_folium(carte, height=420, use_container_width=True, key="carte",
-                       returned_objects=["last_clicked", "last_object_clicked"]) or {}
+    cle_carte = f"carte_{lieu['lat']:.5f}_{lieu['lon']:.5f}" if fixe else "carte"   # re-centre on each sample
+    retour = st_folium(carte, height=420, use_container_width=True, key=cle_carte,
+                       returned_objects=[] if fixe else ["last_clicked", "last_object_clicked"]) or {}
 
     clic = None
+    if fixe:
+        retour = {}
     for cle in ("last_object_clicked", "last_clicked"):
         v = retour.get(cle)
         if v and v != st.session_state.get(f"_{cle}"):
@@ -293,7 +369,10 @@ def choisir_lieu():
         st.rerun()
 
     if lieu:
-        if lieu.get("site"):
+        if lieu.get("demo"):
+            st.success(f"For this demo, this photo is placed at the OneAquaHealth research site "
+                       f"**{nom_site(lieu['site'])}**.")
+        elif lieu.get("site"):
             st.success(f"Research site: **{nom_site(lieu['site'])}**"
                        + (f" ({lieu['distance_m']} m away)" if lieu.get("distance_m", 0) > 50 else ""))
         else:
@@ -303,7 +382,7 @@ def choisir_lieu():
     return st.session_state.get("lieu")
 
 
-def bouton_fhir(cle, fiche, risque, obs=None, decision=None):
+def bouton_fhir(cle, fiche, risque, obs=None, decision=None, libelle_bouton="Export as FHIR"):
     """Download the FHIR R4 Bundle (status "final" only once a manager has validated it)."""
     valide = bool(decision and decision.get("decision") in ("alert validated", "alerte validée"))
     bundle = record_to_fhir(fiche, risque,
@@ -311,7 +390,7 @@ def bouton_fhir(cle, fiche, risque, obs=None, decision=None):
                             rating=(obs or {}).get("evaluation_citoyen"),
                             place=(obs or {}).get("lieu"), validated=valide)
     st.download_button(
-        "Export as FHIR", json.dumps(bundle, indent=2, ensure_ascii=False),
+        libelle_bouton, json.dumps(bundle, indent=2, ensure_ascii=False),
         file_name=f"streamsentinel_{Path(str(cle)).stem}.fhir.json", mime="application/fhir+json",
         key=f"fhir_{cle}",
         help="FHIR R4 Bundle aligned with the OneAquaHealth implementation guide (hl7-eu/oah). "
@@ -429,6 +508,179 @@ def afficher_questions_laissees(fiche):
 
 
 # ---------- "New observation" space ----------
+@st.cache_data(ttl=60, show_spinner=False)
+def api_en_ligne(url):
+    if not url:
+        return False
+    try:
+        requests.get(f"{url}/sante", headers=ENTETES, timeout=6).raise_for_status()
+        return True
+    except requests.RequestException:
+        return False
+
+
+def exemples_valides(fiches, risques):
+    """Pre-analysed photos that can open the guided form (valid, with an image and a risk)."""
+    out = []
+    for f in fiches:
+        img = chemin_image(f)
+        if f.get("valide", True) and "formulaire" in f and img and risques.get(nom(f["photo"])):
+            out.append((f, risques[nom(f["photo"])], img))
+    return out
+
+
+def photo_originale(f):
+    """Original photo of a pre-analysed example, if it was copied to demo/photos."""
+    for ext in ("", ".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"):
+        chemin = DEMO / "photos" / (Path(nom(f["photo"])).stem + ext if ext else nom(f["photo"]))
+        if chemin.exists():
+            return chemin
+    return None
+
+
+def compte_ia(fiche):
+    """(answers pre-filled by the AI, questions where the AI said it was not sure)."""
+    form = fiche.get("formulaire", {})
+    remplies = sum(1 for c in OPTIONS_ALL if _ai(form, c))
+    pas_sur = sum(1 for c, r in form.items() if c not in NO_PREFILL and r.get("valeur") == "NOT_SURE")
+    return remplies, pas_sur
+
+
+def rejouer_analyse(a):
+    """Demo mode: replay the pipeline steps with the real outputs, so the jury sees the AI at work."""
+    fiche, risque = a["fiche"], a["risque"] or {}
+    form = fiche.get("formulaire", {})
+    remplies, pas_sur = compte_ia(fiche)
+    dechets = (fiche.get("signalements") or {}).get("dechets") or []
+    etapes = [
+        ("Checking the photo", "the stream is visible, the photo can be analysed"),
+        ("Segmenting the scene", "water, vegetation and artificial surfaces located (SegFormer)"),
+        ("Reading the photo with the vision-language model",
+         f"{remplies} answers proposed, {pas_sur} left open because the model was not sure (Qwen2.5-VL)"),
+        ("Looking for litter and dead animals",
+         f"{len(dechets)} litter item(s) found (YOLO11s)" if dechets else "no litter found (YOLO11s)"),
+        ("Weather and river flow, fetched live for your place",
+         f"risk for people {level(risque.get('risque_humains', {}).get('niveau', '?'))}, "
+         f"for animals {level(risque.get('risque_animaux', {}).get('niveau', '?'))}"),
+    ]
+    with st.status("Analysing the photo", expanded=True) as statut:
+        for titre, detail in etapes:
+            time.sleep(0.8)
+            st.write(f"**{titre}**. {detail.capitalize()}.")
+        statut.update(label="Analysis complete", state="complete", expanded=False)
+
+
+CATEGORIES = {"berge_betonnee": "Concrete banks", "berge_naturelle": "Natural banks", "dechets": "Litter",
+              "eau_boueuse": "Muddy water", "eau_verte": "Green water", "mousse": "Foam"}
+
+
+def categorie(photo):
+    stem = Path(nom(photo)).stem
+    return next((v for k, v in CATEGORIES.items() if stem.startswith(k)), "Stream")
+
+
+def lieu_demo(index):
+    """Place of a sample photo for the simulation: a OneAquaHealth research site, several cities."""
+    sites = charger_sites()
+    if not sites:
+        return None
+    villes = sorted({x["ville"] for x in sites if x["ville"]}, key=lambda v: (v.lower() != "toulouse", v))
+    ville = villes[index % len(villes)] if villes else ""
+    candidats = [x for x in sites if x["ville"] == ville] or sites
+    site = sorted(candidats, key=lambda x: x["code"])[(index // max(len(villes), 1)) % len(candidats)]
+    return {"lat": site["lat"], "lon": site["lon"], "site": site, "distance_m": 0, "demo": True}
+
+
+class PhotoPerso:
+    """The citizen's own photo, kept in the session once the picker closes."""
+    def __init__(self, name, data, type_):
+        self.name, self._data, self.type = name, data, type_
+
+    def getvalue(self):
+        return self._data
+
+
+@st.dialog("Choose your photo", width="large")
+def choisir_photo(exemples, direct):
+    if direct:
+        propre = st.file_uploader("Take or upload a photo of the stream", type=["jpg", "jpeg", "png"])
+        if propre and st.button("Use my photo", type="primary"):
+            st.session_state["photo_perso"] = PhotoPerso(propre.name, propre.getvalue(), propre.type)
+            st.session_state.pop("echantillon", None)
+            st.rerun()
+        st.markdown("Or pick one of our sample photos.")
+    else:
+        st.markdown('<div class="ss-note">In the real app, this button opens your camera or your gallery. '
+                    'The live analysis needs a GPU, which is off right now. For this simulation, pick one of '
+                    'our photos: the AI answers you will see are its real outputs on that photo.</div>',
+                    unsafe_allow_html=True)
+    cols = st.columns(3, gap="small")
+    for i, (cle, (f, r, img)) in enumerate(exemples.items()):
+        with cols[i % 3]:
+            b64 = base64.b64encode((photo_originale(f) or img).read_bytes()).decode()
+            st.markdown(f'<img class="ss-thumb ss-thumb-small" src="data:image/jpeg;base64,{b64}" '
+                        f'alt="{categorie(f["photo"])}"><div class="ss-thumb-label">{categorie(f["photo"])}</div>',
+                        unsafe_allow_html=True)
+            if st.button("Choose", key=f"pick_{i}", use_container_width=True):
+                st.session_state["echantillon"] = cle
+                st.session_state.pop("photo_perso", None)
+                lieu = lieu_demo(i)
+                if lieu:
+                    st.session_state["lieu"] = lieu
+                st.rerun()
+
+
+def analyser_echantillon(f, r, img, lieu):
+    """Demo analysis: the real pipeline answers for this photo, and a live risk for the chosen place."""
+    fiche = dict(f, valide=True)
+    try:
+        risque = risk_score.evaluer_risque_complet(fiche, lieu["lat"], lieu["lon"])
+        risque["photo"] = nom(f["photo"])
+    except Exception:
+        risque = r   # no network: keep the risk computed in advance
+    brute = photo_originale(f)
+    st.session_state["analyse"] = {
+        "id": f"demo_{Path(nom(f['photo'])).stem}", "fiche": fiche, "risque": risque,
+        "image_annotee_b64": base64.b64encode(img.read_bytes()).decode(), "lieu": lieu, "demo": True,
+        "rejouer": True, "photo_b64": base64.b64encode(brute.read_bytes()).decode() if brute else None}
+    st.session_state.pop("echantillon", None)
+    st.session_state.pop("lieu", None)
+    st.rerun()
+
+
+def secret(nom):
+    try:
+        return st.secrets.get(nom, "")
+    except Exception:
+        return ""
+
+
+def lancer_analyse_space(space, photo, orientation, lieu):
+    """Live analysis on the Hugging Face Space (ZeroGPU), through its Gradio API."""
+    import tempfile, uuid
+    from gradio_client import Client, handle_file
+    ident = uuid.uuid4().hex[:8]
+    chemin = Path(tempfile.gettempdir()) / f"ss_{ident}{Path(photo.name).suffix or '.jpg'}"
+    chemin.write_bytes(photo.getvalue())
+    with st.status("Analysing the photo on the GPU. This takes about a minute.", expanded=False) as statut:
+        try:
+            client = Client(space, hf_token=secret("HF_TOKEN") or None, verbose=False)
+            sortie = client.predict(handle_file(str(chemin)), orientation, lieu["lat"], lieu["lon"],
+                                    api_name="/analyze")
+        except Exception as e:
+            statut.update(label="The analysis failed", state="error")
+            st.error("The live analysis is not available right now. The daily GPU quota may be used up. "
+                     f"Try again later or use a sample photo. ({type(e).__name__})")
+            return
+        statut.update(label="Analysis complete", state="complete")
+    resultat = sortie[-1] if isinstance(sortie, (list, tuple)) else sortie
+    if isinstance(resultat, str):
+        resultat = json.loads(resultat)
+    st.session_state["analyse"] = dict(resultat, id=ident, lieu=lieu, rejouer=False,
+                                       photo_b64=base64.b64encode(photo.getvalue()).decode())
+    st.rerun()
+
+
 def lancer_analyse(url, photo, orientation, lieu):
     lat, lon = lieu["lat"], lieu["lon"]
     try:
@@ -462,7 +714,8 @@ def lancer_analyse(url, photo, orientation, lieu):
             statut.update(label=f"{derniere} ({t.get('ecoule_s', 0)} s)")
             if etat == "termine":
                 statut.update(label=f"Analysis complete in {t.get('duree_s')} s", state="complete")
-                st.session_state["analyse"] = dict(t["resultat"], id=ident, lieu=lieu)
+                st.session_state["analyse"] = dict(t["resultat"], id=ident, lieu=lieu,
+                                                   photo_b64=base64.b64encode(photo.getvalue()).decode())
                 st.rerun()
             if etat == "erreur":
                 statut.update(label="The analysis failed", state="error")
@@ -473,31 +726,51 @@ def lancer_analyse(url, photo, orientation, lieu):
 
 def ecran_envoi():
     url = url_api()
-    if not url:
-        st.info("To analyse a photo, paste the API address in the left menu, under "
-                "'Analysis connection'. Meanwhile, open 'Analysed examples'.")
-    else:
-        try:
-            requests.get(f"{url}/sante", headers=ENTETES, timeout=8).raise_for_status()
-        except requests.RequestException:
-            st.warning("The live analysis service is currently offline. "
-                       "You can browse the 'Analysed examples' in the meantime.")
+    en_ligne = api_en_ligne(url)       # Colab notebook, during team sessions
+    space = secret("HF_SPACE")         # Hugging Face Space, if one is configured
+    direct = en_ligne or bool(space)
+    fiches, risques = charger()
+    exemples = {nom(f["photo"]): (f, r, img) for f, r, img in exemples_valides(fiches, risques)}
+    echantillon = exemples.get(st.session_state.get("echantillon"))
+    photo = st.session_state.get("photo_perso")
 
-    photo = st.file_uploader("Photo of the stream", type=["jpg", "jpeg", "png"],
-                             help="Frame the water and both banks, with no recognisable person.")
-    orientation = st.radio(
-        "Which way were you facing?", ["aval", "amont"], horizontal=True,
-        format_func=lambda o: "Downstream (the current flows away from you)" if o == "aval"
-        else "Upstream (facing the current)",
-        help="Left and right banks are defined when looking downstream.")
+    st.markdown("#### Your photo")
+    gauche, droite = st.columns([2, 3], gap="large")
+    with gauche:
+        if echantillon:
+            f, _, img = echantillon
+            st.image(str(photo_originale(f) or img), use_container_width=True)
+        elif photo:
+            st.image(photo.getvalue(), use_container_width=True)
+        else:
+            st.markdown('<div class="ss-drop">No photo yet</div>', unsafe_allow_html=True)
+    with droite:
+        if st.button("Change the photo" if (echantillon or photo) else "Take or upload a photo",
+                     type="secondary" if (echantillon or photo) else "primary"):
+            choisir_photo(exemples, direct)
+        if echantillon:
+            st.caption(f"Sample photo: {categorie(echantillon[0]['photo']).lower()}. "
+                       f"Taken facing {ORIENTATIONS.get(echantillon[0].get('orientation'), 'downstream')}.")
+            orientation = echantillon[0].get("orientation", "aval")
+        else:
+            orientation = st.radio(
+                "Which way were you facing?", ["aval", "amont"],
+                format_func=lambda o: "Downstream, the current flows away from you" if o == "aval"
+                else "Upstream, facing the current",
+                help="Left and right banks are defined when looking downstream.")
+
     lieu = choisir_lieu()
-    if photo:
-        st.image(photo, width=420)
 
-    if not lieu:
-        st.caption("Pick the location on the map to start the analysis.")
-    if st.button("Analyse the photo", type="primary", disabled=not (photo and url and lieu)):
-        lancer_analyse(url, photo, orientation, lieu)
+    pret = lieu and (echantillon or (photo and direct))
+    if st.button("Analyse the photo", type="primary", disabled=not pret, use_container_width=True):
+        if echantillon:
+            analyser_echantillon(*echantillon, lieu)
+        elif en_ligne:
+            lancer_analyse(url, photo, orientation, lieu)
+        else:
+            lancer_analyse_space(space, photo, orientation, lieu)
+    if not pret:
+        st.caption("Choose a photo and a place to start the analysis.")
 
 
 # ---------- Guided citizen form (same steps as the OneAquaHealth app) ----------
@@ -555,14 +828,7 @@ STEPS = [
 ]
 OPTIONS_ALL = {**{k: v[1] for k, v in OPTIONS.items()}, "water_withdrawal": YES_NO}
 
-st.markdown("""<style>
-.ss-tag {display:inline-block; padding:2px 10px; border-radius:999px; font-size:0.82rem;
-         margin:2px 0 6px 0; line-height:1.5}
-.ss-ai {background:#DDF0EC; color:#0B5345}
-.ss-you {background:#FBEBD0; color:#7A4A06}
-.ss-todo {background:#E8EAF0; color:#353B4A}
-.ss-off {background:#EEE6F5; color:#4B2D66}
-</style>""", unsafe_allow_html=True)
+
 
 
 def _tag(css, text):
@@ -610,7 +876,7 @@ def _question(a, cle, answers):
         elif cle not in formulaire:
             _tag("ss-todo", "For you to answer: not pre-filled by the AI yet")
         elif ai is None:
-            _tag("ss-todo", "For you to answer: the AI could not tell from the photo")
+            _tag("ss-unsure", "The AI is not sure here, so it did not guess. Your answer is needed.")
         elif choice == ai:
             conf = int(round((rep.get("confiance") or 0) * 100))
             src = SOURCES.get(rep.get("source", ""), rep.get("source", "AI"))
@@ -710,8 +976,10 @@ def _summary(a, answers):
 
 def ecran_resultat(a):
     fiche, risque = a["fiche"], a["risque"]
-    if st.button("Analyse another photo"):
+    if st.button("Start again with another photo"):
         st.session_state.pop(f"form_{a['id']}", None)
+        for cle in ("photo_perso", "echantillon", "lieu"):
+            st.session_state.pop(cle, None)
         del st.session_state["analyse"]
         st.rerun()
 
@@ -719,18 +987,44 @@ def ecran_resultat(a):
         st.error(tr(fiche.get("message", "Photo cannot be used.")))
         return
 
+    if a.get("demo"):
+        st.markdown('<div class="ss-note">Sample photo. The form answers are the real outputs of our AI on '
+                    'this photo, computed in advance on a GPU. The risk was computed just now for the place you '
+                    'chose. Check and change the answers as a citizen would.</div>', unsafe_allow_html=True)
+
+    if a.get("rejouer"):
+        rejouer_analyse(a)
+        a["rejouer"] = False
+
     state = _state(a)
     answers, step = state["answers"], state["step"]
     title, keys = STEPS[step]
+
+    if step == 0:
+        remplies, pas_sur = compte_ia(fiche)
+        total = len(OPTIONS_ALL) + 6    # + habitats, debris, water height, invasive species, overall, feelings
+        st.markdown(
+            '<div class="ss-stats">'
+            f'<div><b>{remplies}</b><span>of {total} questions pre-filled by the AI</span></div>'
+            f'<div><b>{total - remplies}</b><span>left for you to answer</span></div>'
+            f'<div class="ss-stat-unsure"><b>{pas_sur}</b><span>where the AI said it was not sure '
+            'instead of guessing</span></div></div>', unsafe_allow_html=True)
 
     site = (a.get("lieu") or {}).get("site")
     st.progress((step + 1) / len(STEPS), text=f"Step {step + 1} of {len(STEPS)}: {title}")
 
     col_form, col_photo = st.columns([3, 2], gap="large")
     with col_photo:
-        st.image(base64.b64decode(a["image_annotee_b64"]),
-                 caption=f"Photo taken facing {ORIENTATIONS.get(fiche.get('orientation'), '?')}: "
-                         "water in blue, vegetation in green, artificial surfaces in red")
+        legende = (f"Photo taken facing {ORIENTATIONS.get(fiche.get('orientation'), '?')}. "
+                   "Water in blue, vegetation in green, artificial surfaces in red, litter in yellow.")
+        if a.get("photo_b64"):
+            vue_ia, vue_brute = st.tabs(["What the AI saw", "Original photo"])
+            with vue_ia:
+                st.image(base64.b64decode(a["image_annotee_b64"]), caption=legende)
+            with vue_brute:
+                st.image(base64.b64decode(a["photo_b64"]))
+        else:
+            st.image(base64.b64decode(a["image_annotee_b64"]), caption=legende)
         if site:
             st.caption(f"Research site: {nom_site(site)}")
         if step == 2:
@@ -778,7 +1072,13 @@ def ecran_resultat(a):
             if a.get("envoyee"):
                 st.success("Observation sent. Thank you for your contribution.")
                 if risque.get("a_valider_gestionnaire"):
-                    st.info("The risk level is high: a manager will check the observation before any alert.")
+                    st.info("The risk level is high. A manager will check the observation before any alert.")
+                st.caption("Your observation is saved in FHIR R4, the health data standard used by the "
+                           "OneAquaHealth implementation guide. Its status stays 'preliminary' until a manager "
+                           "validates it.")
+                bouton_fhir(a["id"], fiche, risque,
+                            {"reponses_citoyen": reponses, "evaluation_citoyen": answers["overall"],
+                             "lieu": a.get("lieu")}, libelle_bouton="Download my observation (FHIR)")
             elif not answers.get("overall"):
                 st.warning("Go back to step 4 and rate the overall condition to send the observation.")
             elif st.button("Send the observation", type="primary", use_container_width=True):
@@ -798,17 +1098,25 @@ def ecran_resultat(a):
 
 
 def page_nouvelle():
-    st.title("📷 New observation")
+    if "analyse" in st.session_state:
+        hero("Report a stream", role="Citizen space")
+    else:
+        hero("Report a stream",
+             "This is what a citizen sees on their phone, by the stream. Take a photo, say where you are, "
+             "and the AI pre-fills the OneAquaHealth form. You check every answer, complete the rest, and send. "
+             "Your observation is saved in FHIR, and a manager checks it if the risk is high.",
+             role="Citizen space")
     if "analyse" in st.session_state:
         ecran_resultat(st.session_state["analyse"])
     else:
         ecran_envoi()
 
 
-# ---------- "Analysed examples" space ----------
+# ---------- "How the AI decides" page ----------
 def page_exemples(fiches, risques):
-    st.title("🌊 Analysed examples")
-    st.caption("Photos of the test set, analysed in advance in Colab.")
+    hero("How the AI decides", role="About the AI", texte="For researchers and anyone curious. For each photo of our test set, see every "
+                               "answer the AI proposed, how sure it was, which method produced it and why. "
+                               "This page only shows. It never changes an observation.")
     photos = [f["photo"] for f in fiches]
     choix = st.selectbox("Photo", photos)
     fiche = next(f for f in fiches if f["photo"] == choix)
@@ -848,14 +1156,13 @@ def page_exemples(fiches, risques):
     st.subheader("Pre-filled form")
     afficher_formulaire(fiche)
     afficher_questions_laissees(fiche)
-    bouton_fhir(choix, fiche, risques.get(nom(choix)))
 
 
 # ---------- "Manager" space ----------
 def page_gestionnaire(fiches, risques):
-    st.title("🛡️ Validation queue")
-    st.caption("High-risk observations wait for your decision before any alert. "
-               "In a real deployment, this space is restricted to authenticated managers.")
+    hero("Validation queue", role="Manager space", texte="For managers of OneAquaHealth sites. High-risk observations wait here, and no "
+                             "alert is issued without a human decision. A validated observation is exported in "
+                             "FHIR with the status 'final'. In a real deployment, this space needs a login.")
 
     par_photo = {nom(f["photo"]): f for f in fiches}
     dossiers = [(o["id"], o["fiche"], o["risque"], o) for o in lire_observations()]
@@ -921,24 +1228,34 @@ except FileNotFoundError as e:
              "with the results in the demo/ folder.")
     st.stop()
 
-page = st.sidebar.radio("Space", ["New observation", "Analysed examples", "Manager"])
+# Browser auto-translation rewrites the page behind React and crashes Streamlit widgets
+# ("NotFoundError: removeChild"). The app is in English: ask browsers not to translate it.
+import streamlit.components.v1 as components
+components.html("<script>const d = window.parent.document; d.documentElement.setAttribute('translate', 'no');"
+                "d.documentElement.classList.add('notranslate');"
+                "if (!d.querySelector('meta[name=google]')) {const m = d.createElement('meta');"
+                "m.name = 'google'; m.content = 'notranslate'; d.head.appendChild(m);}</script>", height=0)
 
-if not url_fixe():   # without a fixed address, ask for it in the menu
-    with st.sidebar.expander("Analysis connection", expanded=not url_api()):
+st.sidebar.markdown('<div class="ss-brand">StreamSentinel</div>'
+                    '<div class="ss-brand-line">An AI companion for the OneAquaHealth citizen app. '
+                    'Citizens report, managers validate.</div>', unsafe_allow_html=True)
+page = st.sidebar.radio("Space", ["Report a stream", "Validation queue", "How the AI decides"],
+                        captions=["Citizen", "Manager", "About the AI"], label_visibility="collapsed")
+st.sidebar.markdown('<div class="ss-brand-line" style="margin-top:1.4rem">OneAquaHealth IEEE Hackathon 2026, '
+                    'Track 3.</div>', unsafe_allow_html=True)
+
+if not url_fixe():   # team only: paste the Colab address to switch on the live analysis
+    with st.sidebar.expander("Live analysis (team)", expanded=False):
         st.text_input("API address", key="url_api", placeholder="https://….ngrok-free.app",
                       help="Shown by the last cell of the API_streamsentinel notebook in Colab.")
         if st.button("Test the connection", disabled=not url_api()):
-            try:
-                s = requests.get(f"{url_api()}/sante", headers=ENTETES, timeout=15).json()
-                st.success("Connected" + (" (GPU on)" if s.get("gpu") else " (no GPU: slow analysis)"))
-            except (requests.RequestException, ValueError):
-                st.error("No answer: is the Colab notebook still running?")
+            api_en_ligne.clear()
+            st.success("Connected") if api_en_ligne(url_api()) else st.error(
+                "No answer. Is the Colab notebook still running?")
 
-st.sidebar.caption("StreamSentinel · OneAquaHealth IEEE Hackathon 2026, track 3")
-
-if page == "New observation":
+if page == "Report a stream":
     page_nouvelle()
-elif page == "Analysed examples":
+elif page == "How the AI decides":
     page_exemples(fiches, risques)
 else:
     page_gestionnaire(fiches, risques)
