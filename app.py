@@ -630,11 +630,23 @@ def choisir_photo(exemples, direct):
                 st.rerun()
 
 
+@st.cache_data(ttl=1800, show_spinner=False)
+def contexte_lieu(lat, lon):
+    """Weather everywhere, river flow only in France (Hub'Eau covers France only)."""
+    meteo = risk_score.meteo_contexte(lat, lon)
+    en_france = 41.0 <= lat <= 51.5 and -5.5 <= lon <= 9.8
+    hub = risk_score.hubeau_contexte(lat, lon) if en_france else {
+        "disponible": False, "raison": "Hub'Eau only covers France"}
+    return meteo, hub
+
+
 def analyser_echantillon(f, r, img, lieu):
     """Demo analysis: the real pipeline answers for this photo, and a live risk for the chosen place."""
     fiche = dict(f, valide=True)
     try:
-        risque = risk_score.evaluer_risque_complet(fiche, lieu["lat"], lieu["lon"])
+        with st.spinner("Fetching the weather and the river flow for this place..."):
+            meteo, hub = contexte_lieu(round(lieu["lat"], 4), round(lieu["lon"], 4))
+            risque = risk_score.evaluer_risque_complet(fiche, lieu["lat"], lieu["lon"], meteo=meteo, hub=hub)
         risque["photo"] = nom(f["photo"])
     except Exception:
         risque = r   # no network: keep the risk computed in advance
