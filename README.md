@@ -4,7 +4,7 @@ AI help for citizens who check urban streams. Built for the OneAquaHealth IEEE G
 
 **Live demo:** https://streamsentinel.streamlit.app
 **Video:** https://youtu.be/zewKEfzgH8U
-
+**Project report:** [StreamSentinel_report.pdf](StreamSentinel_report.pdf)
 
 ## The problem
 
