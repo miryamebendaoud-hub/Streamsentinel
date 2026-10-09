@@ -133,3 +133,13 @@ The risk rules cite the OneAquaHealth Key Indicators of Ecosystem and Biological
 We used an AI coding assistant to help write and review parts of the code and the documentation. All design choices, annotations and evaluations are ours.
 
 The list of recent changes is in `CHANGELOG.md`.
+
+## Team
+
+This project was built by a team of two for the OneAquaHealth IEEE Global Hackathon 2026.
+
+- **Miryame Bendaoud**: risk score for people and animals (J5), Streamlit application (citizen form, manager validation queue, "How the AI decides" page), FHIR R4 export, analysis API on Colab GPU, deployment on Streamlit Community Cloud, independent evaluation of the models (annotation of the unseen test sets, J3 and J4 evaluations).
+- **Mohamed Bendaoud** ([@momo25bend](https://github.com/momo25bend)): photo quality checks and scene segmentation (J1), stream verification with CLIP (J2), litter detection with YOLO11s and OWLv2 (J3), original repository.
+- **Together**: form pre-filling with Qwen2.5-VL-3B (J4) and error corrections after evaluation (J6).
+
+The original repository is [momo25bend/streamsentinel](https://github.com/momo25bend/streamsentinel).
