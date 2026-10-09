@@ -1,5 +1,4 @@
 # StreamSentinel
-
 **From a single stream photo, AI pre-fills the OneAquaHealth citizen form and estimates health risks for people and animals.**
 
 AI help for citizens who check urban streams. Built for the OneAquaHealth IEEE Global Hackathon 2026, Track 3 (AI-Supported Assessment).
